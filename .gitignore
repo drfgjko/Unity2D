@@ -1,0 +1,8 @@
+# Ignore Unity-specific folders
+[Ll]ibrary/
+[Tt]emp/
+[Tt]arget/
+[Ll]ogs/
+
+# Ignore build files
+Build/

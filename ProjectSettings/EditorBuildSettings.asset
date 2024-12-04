@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 00db0c25478e9af448cf2c4813c6cdee
+  - enabled: 1
+    path: Assets/Scenes/00-Grassland.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/01-AutumnForest.unity
+    guid: 5d8f7113687bcab47affdbfac02a38f6
+  - enabled: 1
+    path: Assets/Scenes/02-Tropics.unity
+    guid: 83c445dc5c6ad8740a04daff854a1d25
+  - enabled: 1
+    path: Assets/Scenes/03-WinterWorld.unity
+    guid: 559947c42e2d4fa40bd20bea858f7104
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: d87f2b8205ca2084e84940a534f3f6f4
+  m_configObjects: {}

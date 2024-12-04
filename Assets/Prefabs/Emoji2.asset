@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea046e64c5b87d84c8bed953f4d51772, type: 3}
+  m_Name: Emoji2
+  m_EditorClassIdentifier: 
+  emojiPrefab: {fileID: 7002595874604152212, guid: f46c5e626a3051748b414623c72405b6, type: 3}
+  emojiSprites:
+  - {fileID: -1408544658, guid: 5f18d3d93366f784c9365ca7af7db3f5, type: 3}
+  - {fileID: -1910091944, guid: 5f18d3d93366f784c9365ca7af7db3f5, type: 3}
+  - {fileID: -1274815230, guid: 5f18d3d93366f784c9365ca7af7db3f5, type: 3}
