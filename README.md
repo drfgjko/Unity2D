@@ -7,7 +7,7 @@
 ## What I Updated:
 1. **Main Menu & Mouse Sprites**
 2. **Beginner Tutorial**
-3. **Animation** (e.g., sushi destruction and more)
+3. **Animation & Particle System**
 4. **QTE Buttons**
 5. **Four NEW Scenes**
 6. **BONUS & Skill**
@@ -15,9 +15,11 @@
    - Out of bullets
    - Super gun
    - Super bullets
-8. **BGM & SFX**
-9. **New Mode**
-10. **Record System**
+8. **Game Settings**
+9. **Player Character Switch**
+10. **BGM & SFX**
+11. **New Game Mode**
+12. **Record System**
 
 ## Free AWESOME Assets Used:
 ### From Alex Dev:
