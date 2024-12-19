@@ -6,6 +6,11 @@ using UnityEngine.UI;
 public class TutorialUI : MonoBehaviour
 {
     public static TutorialUI instance;
+    [Header("Character and Spawn Point")]
+    [SerializeField] private GameObject[] playerPrefabs;
+    [SerializeField] private Transform spawnPoint;
+    private int selectedCharacterIndex;
+
     [Header("Main Details")]
     [SerializeField] private TextMeshProUGUI amoText;
     [SerializeField] private GameObject exitBtn;
@@ -19,9 +24,9 @@ public class TutorialUI : MonoBehaviour
     [Header("Qte details")]
     [SerializeField] private int reloadSteps = 5;
     [SerializeField] private BoxCollider2D qteBtnWindows;
-    [SerializeField] private GunController gunController;
     [SerializeField] private QteButton[] qteButtons;
     [SerializeField] private int currentSteps = 0;
+    private GunController gunController;
 
     [Header("BtnUI details")]
     [SerializeField] private GameObject musicButton;
@@ -31,6 +36,9 @@ public class TutorialUI : MonoBehaviour
 
     [Header("Cursor details")]
     [SerializeField] private Texture2D customCursorTexture;
+
+    private GameObject player;
+
     private void Awake()
     {
         instance = this;
@@ -40,12 +48,12 @@ public class TutorialUI : MonoBehaviour
     {
         qteButtons = GetComponentsInChildren<QteButton>(true);
         volumeSlider.value = 100;
+        SpawnCharacter();
         InitPanel();
         InitMusicBtn();
         InitCursor();
         InitButtonsListener();
     }
-
 
     void Update()
     {
@@ -60,6 +68,20 @@ public class TutorialUI : MonoBehaviour
             else PauseGame();
         }
     }
+
+    private void SpawnCharacter()
+    {
+        selectedCharacterIndex = PlayerPrefs.GetInt("SelectedCharacter", 0);
+        player = Instantiate(playerPrefabs[selectedCharacterIndex], spawnPoint.position, Quaternion.identity);
+        player.transform.rotation = Quaternion.identity;
+        gunController = player.GetComponent<GunController>();
+    }
+
+    public GameObject GetPlayer()
+    {
+        return player;
+    }
+
     private void InitButtonsListener()
     {
         resumeButton.GetComponent<Button>().onClick.AddListener(ResumeGame);
@@ -80,6 +102,7 @@ public class TutorialUI : MonoBehaviour
     {
         GameBgmManager.Instance.PlayResumeClipSound();
         pausePanel.SetActive(false);
+        exitBtn.SetActive(true);
         Time.timeScale = 1;
         isPaused = false;
 
@@ -89,6 +112,7 @@ public class TutorialUI : MonoBehaviour
     {
         GameBgmManager.Instance.PlayPauseClipSound();
         pausePanel.SetActive(true);
+        exitBtn.SetActive(false);
         Time.timeScale = 0;
         isPaused = true;
     }

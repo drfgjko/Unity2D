@@ -8,6 +8,12 @@ using UnityEngine.UI;
 public class UI : MonoBehaviour
 {
     public static UI instance;
+
+    [Header("Character and Spawn Point")]
+    [SerializeField] private GameObject[] playerPrefabs; 
+    [SerializeField] private Transform spawnPoint;
+    private int selectedCharacterIndex;
+
     [Header("Main Details")]
     [SerializeField] private TextMeshProUGUI socreText;
     [SerializeField] private TextMeshProUGUI timerText;
@@ -32,9 +38,9 @@ public class UI : MonoBehaviour
     [Header("Qte details")]
     [SerializeField] private int reloadSteps = 5;
     [SerializeField] private BoxCollider2D qteBtnWindows;
-    [SerializeField] private GunController gunController;
     [SerializeField] private QteButton[] qteButtons;
     [SerializeField] private int currentSteps = 0;
+    private GunController gunController;
 
     [Header("BtnUI details")]
     [SerializeField] private GameObject musicButton;
@@ -44,6 +50,8 @@ public class UI : MonoBehaviour
 
     [Header("Cursor details")]
     [SerializeField] private Texture2D customCursorTexture;
+
+    private GameObject player;
     private void Awake()
     {
         instance = this;
@@ -53,12 +61,13 @@ public class UI : MonoBehaviour
     {
         qteButtons = GetComponentsInChildren<QteButton>(true);
         volumeSlider.value = 100;
+        SpawnCharacter();
         InitPanel();
         InitMusicBtn();
         InitCursor();
         InitButtonsListener();
-    }
 
+    }
 
     void Update()
     {
@@ -86,6 +95,33 @@ public class UI : MonoBehaviour
             else PauseGame();
         }
     }
+
+    private void SpawnCharacter()
+    {
+        selectedCharacterIndex = PlayerPrefs.GetInt("SelectedCharacter", 0);
+        player = Instantiate(playerPrefabs[selectedCharacterIndex], spawnPoint.position, Quaternion.identity);
+        player.transform.rotation = Quaternion.identity;
+        gunController = player.GetComponent<GunController>();
+    }
+
+    public GameObject GetPlayer()
+    {
+        return player;
+    }
+
+    private void InitPanel()
+    {
+        tryAgainBtn.SetActive(false);
+        pausePanel.SetActive(false);
+        successPanel.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    private void InitCursor()
+    {
+        Cursor.SetCursor(customCursorTexture, Vector2.zero, CursorMode.Auto);
+    }
+
     private void InitButtonsListener()
     {
         resumeButton.GetComponent<Button>().onClick.AddListener(ResumeGame);
@@ -94,19 +130,6 @@ public class UI : MonoBehaviour
         backToMenuBtn.GetComponent<Button>().onClick.AddListener(QuitGame);
         tryAgainBtn.GetComponent<Button>().onClick.AddListener(RestartGame);
         nextBtn.GetComponent<Button>().onClick.AddListener(RestartGame);
-    }
-    private void InitPanel()
-    {
-        tryAgainBtn.SetActive(false);
-        pausePanel.SetActive(false);
-        successPanel.SetActive(false);
-        Time.timeScale = 1;
-        /* gameTime = 0f;
-         isPaused = false;*/
-    }
-    private void InitCursor()
-    {
-        Cursor.SetCursor(customCursorTexture, Vector2.zero, CursorMode.Auto);
     }
     private void ResumeGame()
     {

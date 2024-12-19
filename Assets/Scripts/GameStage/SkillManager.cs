@@ -8,10 +8,9 @@ public class SkillManager : MonoBehaviour
 {
     public static SkillManager instance;
     [SerializeField] private GameObject effectPrefab;
+
     private Animator Anim => GetComponent<Animator>();
-
     private int skillNum = 3;
-
     private void Awake() => instance = this;
     void Start()
     {
@@ -30,20 +29,27 @@ public class SkillManager : MonoBehaviour
         }
         AnimationController();
     }
+
     private void AnimationController()
     {
         Anim.SetInteger("Num", skillNum);
     }
     private void CastSkill()
     {
+        ClearAllTargets();
+    }
+
+    private void ClearAllTargets()
+    {
         GameObject[] targets = GameObject.FindGameObjectsWithTag("Target");
         foreach (GameObject target in targets)
         {
-            Destroy(target);
-            GameObject effect = Instantiate(effectPrefab);
-            effect.transform.position = target.GetComponent<Collider2D>().bounds.center;
-            float animationDuration = effect.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length;
-            Destroy(effect, animationDuration);
+            Collider2D targetCollider = target.GetComponent<Collider2D>();
+            Vector3 targetCenter = targetCollider.bounds.center;
+            GameObject effect = Instantiate(effectPrefab, targetCenter, Quaternion.identity);
+            Destroy(target); 
+            Animator effectAnimator = effect.GetComponent<Animator>();
+            Destroy(effect, effectAnimator.GetCurrentAnimatorStateInfo(0).length);
         }
     }
 

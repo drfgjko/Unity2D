@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DoNG_
-  productName: sushi & onion lad
+  productName: GET THAT SUSHI
   defaultCursor: {fileID: 2800000, guid: 077fceb7f13f49f46a2cdafee426c44e, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -287,7 +287,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: a1335457c0527c74bb3baa1f8df09223, type: 3}
+      m_Icon: {fileID: 2800000, guid: 7c985b25f6a3a4c49810784bbe33d1be, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

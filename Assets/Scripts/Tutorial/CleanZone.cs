@@ -6,6 +6,10 @@ public class CleanZone : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Target")) Destroy(collision);
+        if (collision.CompareTag("Target"))
+        {
+            Destroy(collision.gameObject);
+        }
     }
+
 }

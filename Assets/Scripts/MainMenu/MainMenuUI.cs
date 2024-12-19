@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,10 +21,21 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private GameObject rankButton;
 
     [Header("SettingBtn details")]
+    [SerializeField] private GameObject buttonsPanel;
+    [SerializeField] private GameObject musicSettingsPanel;
+    [SerializeField] private GameObject characterSettingsPanel;
+    [SerializeField] private GameObject musicSettingsButton; 
+    [SerializeField] private GameObject characterSettingsButton;
+    [SerializeField] private GameObject onionButton;
+    [SerializeField] private GameObject teemoButton;
+    [SerializeField] private Image characterImage;  
+    [SerializeField] private Sprite[] characterSprites;  
+    [SerializeField] private GameObject changePageButton;
     [SerializeField] private GameObject musicButton;
     [SerializeField] private Image musicButtonIcon;
     [SerializeField] private Sprite[] musicBtnSprites;
     [SerializeField] private Slider volumeSlider;
+    private int selectedCharacterIndex = 0;
 
     [Header("HelpBtn details")]
     [SerializeField] private GameObject tutorialButton;
@@ -47,7 +59,8 @@ public class MainMenuUI : MonoBehaviour
         InitCursor();
         InitMusicBtn();
         InitializePlayerPrefs();
-        InitBestScore(); 
+        InitBestScore();
+        InitCharacterSelection();
         settingButton.GetComponent<Button>().onClick.AddListener(OpenSettingPanel);
         helpButton.GetComponent<Button>().onClick.AddListener(OpenHelpPanel);
         playButton.GetComponent<Button>().onClick.AddListener(OpenPlayPanel);
@@ -55,6 +68,18 @@ public class MainMenuUI : MonoBehaviour
         tutorialButton.GetComponent<Button>().onClick.AddListener(GoToTutorial);
         musicButton.GetComponent<Button>().onClick.AddListener(UpdateMusicButton);
         exitButton.GetComponent<Button>().onClick.AddListener(QuitGame);
+        musicSettingsButton.GetComponent<Button>().onClick.AddListener(OpenMusicSettingsPanel);
+        characterSettingsButton.GetComponent<Button>().onClick.AddListener(OpenCharacterSettingsPanel);
+        changePageButton.GetComponent<Button>().onClick.AddListener(ChangePage);
+        onionButton.GetComponent<Button>().onClick.AddListener(() => OnCharacterSelected(0));
+        teemoButton.GetComponent<Button>().onClick.AddListener(() => OnCharacterSelected(1));
+    }
+
+    private void InitCharacterSelection()
+    {
+        int savedCharacterIndex = PlayerPrefs.GetInt("SelectedCharacter", 0);
+        characterImage.sprite = characterSprites[savedCharacterIndex];
+        selectedCharacterIndex = savedCharacterIndex;
     }
 
     private void InitBestScore()
@@ -137,9 +162,17 @@ Application.Quit();
         if (!settingPanel.activeSelf)
         {
             settingPanel.SetActive(true);
+            InitSettingPanel();
             mainPanel.SetActive(false);
         }
         MainMenuSoundManager.Instance.PlayClickClipSound();
+    }
+
+    private void InitSettingPanel()
+    {
+        buttonsPanel.SetActive(true);
+        musicSettingsPanel.SetActive(false);
+        characterSettingsPanel.SetActive(false);
     }
 
     private void OpenRankPanel()
@@ -150,6 +183,43 @@ Application.Quit();
         rankPanel.SetActive(true);
     }
 
+    private void OpenCharacterSettingsPanel()
+    {
+        MainMenuSoundManager.Instance.PlayClickClipSound();
+        buttonsPanel.SetActive(false);
+        characterSettingsPanel.SetActive(true);
+        musicSettingsPanel.SetActive(false);
+    }
+
+    private void OpenMusicSettingsPanel()
+    {
+        MainMenuSoundManager.Instance.PlayClickClipSound();
+        buttonsPanel.SetActive(false);
+        musicSettingsPanel.SetActive(true);
+        characterSettingsPanel.SetActive(false); 
+    }
+
+
+    private void OnCharacterSelected(int index)
+    {
+        MainMenuSoundManager.Instance.PlayClickClipSound();
+        selectedCharacterIndex = index;
+        characterImage.sprite = characterSprites[index];
+        PlayerPrefs.SetInt("SelectedCharacter", selectedCharacterIndex);
+        PlayerPrefs.Save();
+    }
+
+    private void ChangePage()
+    {
+        if (musicSettingsPanel.activeSelf)
+        {
+            OpenCharacterSettingsPanel();
+        }
+        else if (characterSettingsPanel.activeSelf)
+        {
+            OpenMusicSettingsPanel();
+        }
+    }
 
     public void ResumeGame()
     {

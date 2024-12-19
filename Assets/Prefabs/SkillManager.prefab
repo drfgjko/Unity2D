@@ -264,6 +264,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectPrefab: {fileID: 5602979875144664565, guid: d558d5ca74329e540a3005ed6136b57a, type: 3}
+  fireworkEffectPrefab: {fileID: 8352854870917267825, guid: 7f60f29425aada04e86d0b3dfaa8491d, type: 3}
+  fireworkSprites:
+  - {fileID: -1997084503, guid: c51f0b65b01d0514484024a16719be17, type: 3}
+  - {fileID: 1264077945, guid: c51f0b65b01d0514484024a16719be17, type: 3}
+  - {fileID: 855285786, guid: c51f0b65b01d0514484024a16719be17, type: 3}
+  - {fileID: 2063776614, guid: c51f0b65b01d0514484024a16719be17, type: 3}
+  - {fileID: -1611537853, guid: c51f0b65b01d0514484024a16719be17, type: 3}
+  - {fileID: 2106560594, guid: c51f0b65b01d0514484024a16719be17, type: 3}
 --- !u!1 &7967735518253585051
 GameObject:
   m_ObjectHideFlags: 0
